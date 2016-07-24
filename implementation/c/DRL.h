@@ -349,17 +349,116 @@ void drl_removeObject(struct DRL_OBJECT * lpObject, size_t stIndex);
 
 /*
 *
-* Method : drl_attributeToInt
+* Method : drl_attributeToShortInt
 *
 * Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
 *
-* Return value : int - argument's value.
+* Return value : short int - argument's value.
 *
-* Description : Converts given argument's value into integer.
+* Description : Converts given argument's string value into short integer.
 *
 */
 
-int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute);
+short int drl_attributeToShortInt(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToUShortInt
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : unsigned short int - argument's value.
+*
+* Description : Converts given argument's string value into unsigned short integer.
+*
+*/
+
+unsigned short int drl_attributeToUShortInt(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToLong
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : long - argument's value.
+*
+* Description : Converts given argument's string value into long integer.
+*
+*/
+
+long drl_attributeToLong(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToULong
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : unsigned long - argument's value.
+*
+* Description : Converts given argument's string value into unsigned long integer.
+*
+*/
+
+unsigned long drl_attributeToULong(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToLongLong
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : long long - argument's value.
+*
+* Description : Converts given argument's string value into long long integer.
+*
+*/
+
+long long drl_attributeToLongLong(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToULongLong
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : unsigned long long - argument's value.
+*
+* Description : Converts given argument's string value into unsigned long long integer.
+*
+*/
+
+unsigned long long drl_attributeToULongLong(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToBoolean
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : bool - argument's value.
+*
+* Description : Converts given argument's string value into boolean.
+*
+*/
+
+bool drl_attributeToBoolean(struct DRL_ATTRIBUTE * lpAttribute);
+
+/*
+*
+* Method : drl_attributeToFloat
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : float - argument's value.
+*
+* Description : Converts given argument's string value into float.
+*
+*/
+
+float drl_attributeToFloat(struct DRL_ATTRIBUTE * lpAttribute);
+
 
 /*
 *

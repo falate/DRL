@@ -739,38 +739,124 @@ void drl_removeObject(struct DRL_OBJECT * lpObject, size_t stIndex) {
 
 }
 
-static inline int _drl_rapidATOI(const char * strValue)
-{
+short int drl_attributeToShortInt(struct DRL_ATTRIBUTE * lpAttribute) {
 
-    int iValue = 0;
+  char * strValue = lpAttribute->m_strValue;
 
-    bool bMod = false;
+  short int siValue = 0;
 
-    if(*strValue == '-') {
+  bool bMod = false;
 
-      strValue++;
+  if(*strValue == '-') {
 
-      bMod = true;
+    strValue++;
 
-    }
+    bMod = true;
 
-    while(*strValue)
-      iValue = iValue * 10 + (*strValue++ - '0');
+  }
 
-    if(bMod)
-      iValue = -iValue;
+  while(*strValue)
+    siValue = siValue * 10 + (*strValue++ - '0');
 
-    return iValue;
+  if(bMod)
+    siValue = -siValue;
 
-}
-
-int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute) {
-
-  return _drl_rapidATOI(lpAttribute->m_strValue);
+  return siValue;
 
 }
 
-static int _drl_rapidIPOW(int iBase, int iExp)
+unsigned short int drl_attributeToUShortInt(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  char * strValue = lpAttribute->m_strValue;
+
+  unsigned short int usiValue = 0;
+
+  while(*strValue)
+    usiValue = usiValue * 10 + (*strValue++ - '0');
+
+  return usiValue;
+
+}
+
+long drl_attributeToLong(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  char * strValue = lpAttribute->m_strValue;
+
+  long lValue = 0;
+
+  bool bMod = false;
+
+  if(*strValue == '-') {
+
+    strValue++;
+
+    bMod = true;
+
+  }
+
+  while(*strValue)
+    lValue = lValue * 10 + (*strValue++ - '0');
+
+  if(bMod)
+    lValue = -lValue;
+
+  return lValue;
+
+}
+
+unsigned long drl_attributeToULong(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  char * strValue = lpAttribute->m_strValue;
+
+  unsigned long ulValue = 0;
+
+  while(*strValue)
+    ulValue = ulValue * 10 + (*strValue++ - '0');
+
+  return ulValue;
+
+}
+
+long long drl_attributeToLongLong(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  char * strValue = lpAttribute->m_strValue;
+
+  long llValue = 0;
+
+  bool bMod = false;
+
+  if(*strValue == '-') {
+
+    strValue++;
+
+    bMod = true;
+
+  }
+
+  while(*strValue)
+    llValue = llValue * 10 + (*strValue++ - '0');
+
+  if(bMod)
+    llValue = -llValue;
+
+  return llValue;
+
+}
+
+unsigned long long drl_attributeToULongLong(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  char * strValue = lpAttribute->m_strValue;
+
+  unsigned long ullValue = 0;
+
+  while(*strValue)
+    ullValue = ullValue * 10 + (*strValue++ - '0');
+
+  return ullValue;
+
+}
+
+static inline int _drl_rapidIPOW(int iBase, int iExp)
 {
     int iResult = 1;
 
@@ -788,50 +874,89 @@ static int _drl_rapidIPOW(int iBase, int iExp)
     return iResult;
 }
 
-static double _drl_rapidATOD(const char * strValue) {
+float drl_attributeToFloat(struct DRL_ATTRIBUTE * lpAttribute) {
 
-    double dblValue = 0.0f;
+  char * strValue = lpAttribute->m_strValue;
 
-    bool bMod = false;
+  float fltValue = 0.0f;
 
-    if (*strValue == '-') {
+  bool bMod = false;
 
-      bMod = true;
-      strValue++;
+  if (*strValue == '-') {
 
-    }
+    bMod = true;
+    strValue++;
 
-    while (*strValue >= '0' && *strValue <= '9')
-        dblValue = (dblValue * 10.0f) + (*strValue++ - '0');
+  }
 
-    if (*strValue == '.') {
+  while (*strValue >= '0' && *strValue <= '9')
+      fltValue = (fltValue * 10.0f) + (*strValue++ - '0');
 
-        double dblTemp = 0.0f;
-        unsigned int iCounter = 0;
+  if (*strValue == '.') {
 
-        ++strValue;
+      float fltTemp = 0.0f;
+      unsigned int iCounter = 0;
 
-        while (*strValue >= '0' && *strValue <= '9') {
+      ++strValue;
 
-            dblTemp = (dblTemp * 10.0f) + (*strValue++ - '0');
-            ++iCounter;
+      while (*strValue >= '0' && *strValue <= '9') {
 
-        }
+          fltTemp = (fltTemp * 10.0f) + (*strValue++ - '0');
+          ++iCounter;
 
-        dblValue += dblTemp / (double)_drl_rapidIPOW(10, iCounter);
+      }
 
-    }
+      fltValue += fltTemp / (double)_drl_rapidIPOW(10, iCounter);
 
-    if(bMod)
-      dblValue = -dblValue;
+  }
 
-    return dblValue;
+  if(bMod)
+    fltValue = -fltValue;
+
+  return fltValue;
 
 }
 
 double drl_attributeToDouble(struct DRL_ATTRIBUTE * lpAttribute) {
 
-  return _drl_rapidATOD(lpAttribute->m_strValue);
+  char * strValue = lpAttribute->m_strValue;
+
+  double dblValue = 0.0f;
+
+  bool bMod = false;
+
+  if (*strValue == '-') {
+
+    bMod = true;
+    strValue++;
+
+  }
+
+  while (*strValue >= '0' && *strValue <= '9')
+      dblValue = (dblValue * 10.0f) + (*strValue++ - '0');
+
+  if (*strValue == '.') {
+
+      double dblTemp = 0.0f;
+      unsigned int iCounter = 0;
+
+      ++strValue;
+
+      while (*strValue >= '0' && *strValue <= '9') {
+
+          dblTemp = (dblTemp * 10.0f) + (*strValue++ - '0');
+          ++iCounter;
+
+      }
+
+      dblValue += dblTemp / (double)_drl_rapidIPOW(10, iCounter);
+
+  }
+
+  if(bMod)
+    dblValue = -dblValue;
+
+  return dblValue;
 
 }
 
