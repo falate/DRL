@@ -733,8 +733,21 @@ static inline int _drl_rapidATOI(const char * strValue)
 
     int iValue = 0;
 
+    bool bMod = false;
+
+    if(*strValue == '-') {
+
+      strValue++;
+
+      bMod = true;
+
+    }
+
     while(*strValue)
       iValue = iValue * 10 + (*strValue++ - '0');
+
+    if(bMod)
+      iValue = iValue * -1;
 
     return iValue;
 
