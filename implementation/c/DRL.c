@@ -728,6 +728,24 @@ void drl_removeObject(struct DRL_OBJECT * lpObject, size_t stIndex) {
 
 }
 
+static inline int _drl_rapidATOI(const char * strValue)
+{
+
+    int iValue = 0;
+
+    while(*strValue)
+      iValue = iValue * 10 + (*strValue++ - '0');
+
+    return iValue;
+
+}
+
+int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  return _drl_rapidATOI(lpAttribute->m_strValue);
+
+}
+
 #ifdef __cplusplus
 
 }

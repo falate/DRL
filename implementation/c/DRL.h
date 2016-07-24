@@ -343,13 +343,25 @@ void drl_removeAttribute(struct DRL_OBJECT * lpObject, size_t stIndex);
 *
 * Return value : -
 *
-* Thread safe : Yes.
-*
 * Description : This method is removing object's children on given index.
 *
 */
 
 void drl_removeObject(struct DRL_OBJECT * lpObject, size_t stIndex);
+
+/*
+*
+* Method : drl_attributeToInt
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : int - argument's value.
+*
+* Description : Converts given argument's value into integer.
+*
+*/
+
+int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute);
 
 // @@ Methods section end.
 
