@@ -361,6 +361,20 @@ void drl_removeObject(struct DRL_OBJECT * lpObject, size_t stIndex);
 
 int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute);
 
+/*
+*
+* Method : drl_attributeToDouble
+*
+* Arguments : struct DRL_ATTRIBUTE * - pointer to attribute.
+*
+* Return value : double - argument's value.
+*
+* Description : Converts given argument's value into double.
+*
+*/
+
+double drl_attributeToDouble(struct DRL_ATTRIBUTE * lpAttribute) ;
+
 // @@ Methods section end.
 
 

@@ -61,7 +61,7 @@ extern "C" {
 
 #endif
 
-__thread unsigned int DRL_LAST_ERROR_CODE = 0;
+unsigned int DRL_LAST_ERROR_CODE = 0;
 
 static inline int _drl_ceil(float fVal) {
 
@@ -758,7 +758,7 @@ static inline int _drl_rapidATOI(const char * strValue)
       iValue = iValue * 10 + (*strValue++ - '0');
 
     if(bMod)
-      iValue = iValue * -1;
+      iValue = -iValue;
 
     return iValue;
 
@@ -767,6 +767,71 @@ static inline int _drl_rapidATOI(const char * strValue)
 int drl_attributeToInt(struct DRL_ATTRIBUTE * lpAttribute) {
 
   return _drl_rapidATOI(lpAttribute->m_strValue);
+
+}
+
+static int _drl_rapidIPOW(int iBase, int iExp)
+{
+    int iResult = 1;
+
+    while (iExp)
+    {
+
+        if (iExp & 1)
+            iResult *= iBase;
+
+        iExp >>= 1;
+
+        iBase *= iBase;
+    }
+
+    return iResult;
+}
+
+static double _drl_rapidATOD(const char * strValue) {
+
+    double dblValue = 0.0f;
+
+    bool bMod = false;
+
+    if (*strValue == '-') {
+
+      bMod = true;
+      strValue++;
+
+    }
+
+    while (*strValue >= '0' && *strValue <= '9')
+        dblValue = (dblValue * 10.0f) + (*strValue++ - '0');
+
+    if (*strValue == '.') {
+
+        double dblTemp = 0.0f;
+        unsigned int iCounter = 0;
+
+        ++strValue;
+
+        while (*strValue >= '0' && *strValue <= '9') {
+
+            dblTemp = (dblTemp * 10.0f) + (*strValue++ - '0');
+            ++iCounter;
+
+        }
+
+        dblValue += dblTemp / (double)_drl_rapidIPOW(10, iCounter);
+
+    }
+
+    if(bMod)
+      dblValue = -dblValue;
+
+    return dblValue;
+
+}
+
+double drl_attributeToDouble(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  return _drl_rapidATOD(lpAttribute->m_strValue);
 
 }
 
