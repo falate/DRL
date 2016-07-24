@@ -53,8 +53,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <math.h>
-
 #include "DRL.h"
 
 #ifdef __cplusplus
@@ -64,6 +62,21 @@ extern "C" {
 #endif
 
 __thread unsigned int DRL_LAST_ERROR_CODE = 0;
+
+static inline int _drl_ceil(float fVal) {
+
+  int iNumber = (int) fVal;
+
+  if (iNumber == (float)iNumber) {
+      return iNumber;
+  }
+
+  if(iNumber >= 0)
+    return iNumber + 1;
+  else
+    return iNumber - 1;
+
+}
 
 const unsigned int drl_getLastErrorCode() {
 
@@ -617,7 +630,7 @@ bool drl_saveFile(struct DRL_FILE * lpFile, const char * strPath) {
  {
 
    if(lpDest->m_uiAttributeCount != 0 && lpDest->m_uiAttributeCount % DRL_POINTER_POOL_BASE == 0)
-     lpDest->m_lpAttributes = realloc(lpDest->m_lpAttributes, (ceil((float)lpDest->m_uiAttributeCount / (float)DRL_POINTER_POOL_BASE) + 1) * DRL_POINTER_POOL_BASE);
+     lpDest->m_lpAttributes = realloc(lpDest->m_lpAttributes, (_drl_ceil((float)lpDest->m_uiAttributeCount / (float)DRL_POINTER_POOL_BASE) + 1) * DRL_POINTER_POOL_BASE);
 
    lpDest->m_lpAttributes[lpDest->m_uiAttributeCount] = lpAttr;
    lpDest->m_uiAttributeCount++;
@@ -649,7 +662,7 @@ void drl_addChildObject(struct DRL_OBJECT * lpDest, struct DRL_OBJECT * lpChild)
   lpChild->m_lpParent = lpDest;
 
   if(lpDest->m_uiChildCount % DRL_POINTER_POOL_BASE == 0 && lpDest->m_uiChildCount != 0)
-    lpDest->m_lpChilds = realloc(lpDest->m_lpChilds, (ceil((float)lpDest->m_uiChildCount / (float)DRL_POINTER_POOL_BASE) + 1) * DRL_POINTER_POOL_BASE);
+    lpDest->m_lpChilds = realloc(lpDest->m_lpChilds, (_drl_ceil((float)lpDest->m_uiChildCount / (float)DRL_POINTER_POOL_BASE) + 1) * DRL_POINTER_POOL_BASE);
 
   lpDest->m_lpChilds[lpDest->m_uiChildCount] = lpChild;
   lpDest->m_uiChildCount++;
