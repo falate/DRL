@@ -856,6 +856,15 @@ unsigned long long drl_attributeToULongLong(struct DRL_ATTRIBUTE * lpAttribute) 
 
 }
 
+bool drl_attributeToBoolean(struct DRL_ATTRIBUTE * lpAttribute) {
+
+  if(lpAttribute->m_strValue == "true")
+    return true;
+  else
+    return false;
+
+}
+
 static inline int _drl_rapidIPOW(int iBase, int iExp)
 {
     int iResult = 1;
