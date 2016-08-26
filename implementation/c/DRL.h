@@ -71,13 +71,7 @@ extern "C" {
 // Define byte type.
 typedef unsigned char byte;
 
-#ifndef __cplusplus
-
-// Define boolean type.
-typedef int bool; enum {false = 0, true};
-
-#endif
-
+#include <stdbool.h>
 // @@ Type definition section end.
 
 
@@ -473,6 +467,44 @@ float drl_attributeToFloat(struct DRL_ATTRIBUTE * lpAttribute);
 */
 
 double drl_attributeToDouble(struct DRL_ATTRIBUTE * lpAttribute) ;
+
+/*
+*
+* Method : drl_attributeFromShortInt
+*
+* Arguments : short int - attibute value.
+*
+* Return value : struct DRL_ATTRIBUTE * - pointer to created attribute instance.
+*
+* Description : Creates attribute from given short int value.
+*
+*/
+
+struct DRL_ATTRIBUTE * drl_attributeFromShortInt(const char * name, int value);
+
+/*
+*
+* Method : drl_findObject.
+*
+* Description : Looks for child object by name.
+*
+*/
+
+struct DRL_OBJECT * drl_findObject(struct DRL_OBJECT * object, int start_index,
+                                                          const char * name,
+                                                            int * next_index);
+
+/*
+*
+* Method : drl_findAttribute.
+*
+* Description : Looks for attribute by name.
+*
+*/
+
+struct DRL_ATTRIBUTE * drl_findAttribute(struct DRL_OBJECT * object,
+                                        int start_index, const char * name,
+                                                            int * next_index);
 
 // @@ Methods section end.
 

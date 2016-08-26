@@ -969,6 +969,109 @@ double drl_attributeToDouble(struct DRL_ATTRIBUTE * lpAttribute) {
 
 }
 
+static inline char * _drl_revertString(char * strOriginal, size_t stLength)
+{
+    char * lpStart = strOriginal;
+    char * lpEnd = lpStart + stLength - 1;
+
+    while (lpStart < lpEnd) {
+
+        char cTemporary = *lpStart;
+        *lpStart++ = *lpEnd;
+        *lpEnd-- = cTemporary;
+
+    }
+
+    return strOriginal;
+}
+
+struct DRL_ATTRIBUTE * drl_attributeFromShortInt(const char * name, int iValue) {
+
+  char strBuffer[7];
+  unsigned int uiCounter = 0;
+
+  bool bNegative = false;
+
+
+  if(iValue < 0) {
+
+    bNegative = true;
+
+    iValue = -iValue;
+
+  }
+
+  while(iValue > 9) {
+
+    strBuffer[uiCounter] = iValue % 10 + '0';
+
+    iValue /= 10;
+
+    uiCounter++;
+
+  }
+
+  strBuffer[uiCounter] = iValue + '0';
+  uiCounter++;
+
+  if(bNegative) {
+
+    strBuffer[uiCounter] = '-';
+    uiCounter++;
+
+  }
+
+  strBuffer[uiCounter] = 0x00;
+
+
+  _drl_revertString(strBuffer, uiCounter);
+
+  return drl_addNewAttribute(NULL, name, strBuffer);
+
+}
+
+struct DRL_OBJECT * drl_findObject(struct DRL_OBJECT * object,
+                                        int start_index, const char * name,
+                                                            int * next_index) {
+  for(int i = start_index; i < object->m_uiChildCount;i++) {
+
+    if(strcmp(name, object->m_lpChilds[i]->m_strName) == 0) {
+
+      *next_index = i+1;
+
+      return object->m_lpChilds[i];
+
+    }
+
+  }
+
+  *next_index = 0;
+
+  return NULL;
+
+}
+
+struct DRL_ATTRIBUTE * drl_findAttribute(struct DRL_OBJECT * object,
+                                        int start_index, const char * name,
+                                                            int * next_index) {
+  for(int i = start_index; i < object->m_uiAttributeCount;i++) {
+
+    if(strcmp(name, object->m_lpAttributes[i]->m_strName) == 0) {
+
+      *next_index = i+1;
+
+      return object->m_lpAttributes[i];
+
+    }
+
+  }
+
+  *next_index = 0;
+
+  return NULL;
+
+}
+
 #ifdef __cplusplus
 
 }
