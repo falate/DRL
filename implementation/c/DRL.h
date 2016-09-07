@@ -161,6 +161,25 @@ struct DRL_FILE {
 
 };
 
+/*
+*
+* Structure : S_DRL_Container.
+* 
+* Alias : DRL_CONTAINER.
+*
+* Following structure is representing single container instance.
+* Container got bound flags and root object.
+*
+*/
+
+struct DRL_CONTAINER {
+
+  struct DRL_OBJECT *   m_lpRootObject;
+  
+  int32_t               m_i32Flag;
+
+};
+
 // @@ Structures section end.
 
 
