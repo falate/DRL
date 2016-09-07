@@ -104,6 +104,36 @@ const char * drl_translateErrorCode(const unsigned int uiCode) {
 
 }
 
+DRL_CONTAINER * drl_createContainer(int32_t p_i32Flags) {
+  
+  DRL_CONTAINER * l_lpInstance = malloc(sizeof(DRL_CONTAINER));
+  
+  // Memory allocation failure.
+  
+  if(l_lpInstance == NULL) {
+    
+    // Set last error code.
+    
+    return NULL;
+    
+  }
+  
+  l_lpInstance->m_lpRootObject = drl_addNewChildObject(NULL, "ROOT");
+  
+  if(l_lpInstance->m_lpRootObject == NULL) {
+    
+     free(l_lpInstance);
+     
+     return NULL;
+     
+  }
+  
+  l_lpInstance->m_i32Flag = p_i32Flags;
+  
+  return l_lpInstance;
+  
+}
+
 struct DRL_FILE * drl_createFile() {
 
   struct DRL_FILE * lpFile = malloc(sizeof(struct DRL_FILE));
