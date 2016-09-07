@@ -134,6 +134,21 @@ DRL_CONTAINER * drl_createContainer(int32_t p_i32Flags) {
   
 }
 
+void drl_freeContainer(DRL_CONTAINER * p_lpContainer) {
+  
+  #ifdef DRL_SENSITIVE_ERROR_CHECK
+  
+  if(p_lpContainer == NULL)
+    return;
+    
+  #endif
+  
+  // Free childs.
+  
+  free(p_lpContainer);
+  
+}
+
 struct DRL_FILE * drl_createFile() {
 
   struct DRL_FILE * lpFile = malloc(sizeof(struct DRL_FILE));
